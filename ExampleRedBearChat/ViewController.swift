@@ -9,11 +9,11 @@
 import UIKit
 
 // MARK: CHANGE 2: No longer should this view be a BLE delegate
-class ViewController: UIViewController, BLEDelegate {
+class ViewController: UIViewController {
     
     // MARK: VC Properties
     // MARK: CHANGE 3: No longer have BLE instantiate itself. Instead: Add support for lazy instantiation (like we did in the table view controller)
-    var bleShield = BLE()
+    lazy var bleShield:BLE = (UIApplication.shared.delegate as! AppDelegate).bleShield
     var rssiTimer = Timer()
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     @IBOutlet weak var buttonConnect: UIButton!
@@ -25,7 +25,7 @@ class ViewController: UIViewController, BLEDelegate {
         super.viewDidLoad()
         // MARK: CHANGE 1.a: change this as you no longer need to instantiate the BLE Object like this
         //   you should not let this ViewController be the BLE delegate
-        bleShield.delegate = self
+        // bleShield.delegate = self
         
         // MARK: CHANGE 4: Nothing to actually change here, just get familiar with
         //  the code below and what the notificaitons mean.
@@ -114,47 +114,47 @@ class ViewController: UIViewController, BLEDelegate {
     
     // MARK: User initiated Functions
     // MARK: CHANGE 1.b: change this as you no longer need to search for perpipherals in this view controller
-    @IBAction func buttonScanForDevices(_ sender: UIButton) {
-        
-        // disconnect from any peripherals
-        var didDisconnect = false
-        for peripheral in bleShield.peripherals {
-            if(peripheral.state == .connected){
-                if(bleShield.disconnectFromPeripheral(peripheral: peripheral)){
-                    didDisconnect = true
-                }
-            }
-        }
-        // if we disconnected anything, return from button
-        if(didDisconnect){
-            return
-        }
-        
-        //start search for peripherals with a timeout of 3 seconds
-        // this is an asynchronous call and will return before search is complete
-        if(bleShield.startScanning(timeout: 3.0)){
-            // after three seconds, try to connect to first peripheral
-            Timer.scheduledTimer(withTimeInterval: 3.0,
-                                 repeats: false,
-                                 block: self.connectTimer)
-        }
-        
-        // give connection feedback to the user
-        self.spinner.startAnimating()
-    }
+//    @IBAction func buttonScanForDevices(_ sender: UIButton) {
+//
+//        // disconnect from any peripherals
+//        var didDisconnect = false
+//        for peripheral in bleShield.peripherals {
+//            if(peripheral.state == .connected){
+//                if(bleShield.disconnectFromPeripheral(peripheral: peripheral)){
+//                    didDisconnect = true
+//                }
+//            }
+//        }
+//        // if we disconnected anything, return from button
+//        if(didDisconnect){
+//            return
+//        }
+//
+//        //start search for peripherals with a timeout of 3 seconds
+//        // this is an asynchronous call and will return before search is complete
+//        if(bleShield.startScanning(timeout: 3.0)){
+//            // after three seconds, try to connect to first peripheral
+//            Timer.scheduledTimer(withTimeInterval: 3.0,
+//                                 repeats: false,
+//                                 block: self.connectTimer)
+//        }
+//
+//        // give connection feedback to the user
+//        self.spinner.startAnimating()
+//    }
     
     // MARK: CHANGE 1.c: change this as you no longer need to create the connection in this view controller
     // Called when scan period is over to connect to the first found peripheral
-    func connectTimer(timer:Timer){
-        
-        if(bleShield.peripherals.count > 0) {
-            // connect to the first found peripheral
-            bleShield.connectToPeripheral(peripheral: bleShield.peripherals[0])
-        }
-        else {
-            self.spinner.stopAnimating()
-        }
-    }
+//    func connectTimer(timer:Timer){
+//
+//        if(bleShield.peripherals.count > 0) {
+//            // connect to the first found peripheral
+//            bleShield.connectToPeripheral(peripheral: bleShield.peripherals[0])
+//        }
+//        else {
+//            self.spinner.stopAnimating()
+//        }
+//    }
     
     // MARK: CHANGE: this function only needs a name change, the BLE writing does not change
     @IBAction func sendDataButton(_ sender: UIButton) {
