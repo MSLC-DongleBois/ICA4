@@ -93,16 +93,6 @@
                                     <action selector="sendDataButton:" destination="8ss-rr-rj5" eventType="touchUpInside" id="jbk-Zu-7Ox"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TbX-Bu-sjV">
-                                <rect key="frame" x="111" y="120" width="98" height="37"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Connect">
-                                    <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="buttonScanForDevices:" destination="8ss-rr-rj5" eventType="touchUpInside" id="kqQ-5Y-arL"/>
-                                </connections>
-                            </button>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="Text received:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="mRW-VY-CiV">
                                 <rect key="frame" x="34" y="175" width="108" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -131,12 +121,19 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hqg-Ct-lru">
+                                <rect key="frame" x="51" y="128" width="141" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="B37-Ax-vnp"/>
                     </view>
                     <connections>
-                        <outlet property="buttonConnect" destination="TbX-Bu-sjV" id="KXi-sd-o2o"/>
+                        <outlet property="connectLabel" destination="hqg-Ct-lru" id="ohd-tQ-a6T"/>
                         <outlet property="labelText" destination="pAb-F4-XNK" id="6Va-Dm-6ke"/>
                         <outlet property="rssiLabel" destination="RK4-eI-9ji" id="s5S-00-vCb"/>
                         <outlet property="spinner" destination="IEr-5P-BUp" id="MYL-ea-50K"/>
