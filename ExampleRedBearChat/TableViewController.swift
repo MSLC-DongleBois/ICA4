@@ -79,7 +79,7 @@ class TableViewController: UITableViewController {
         
         // MARK: CHANGE 6: add code here to connect to the selected peripheral
         if bleShield.connectToPeripheral(peripheral: selection){
-            print(true)
+            print("connected to peripheral")
         }
     }
 
