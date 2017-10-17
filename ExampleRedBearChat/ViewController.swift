@@ -60,6 +60,7 @@ class ViewController: UIViewController {
         bleShield.readRSSI { (number, error) in
             // when RSSI read is complete, display it
             self.rssiLabel.text = String(format: "%.1f",(number?.floatValue)!)
+            self.spinner.stopAnimating()
         }
     }
 
@@ -81,6 +82,11 @@ class ViewController: UIViewController {
         print(deviceName)
         
         self.connectLabel.text = deviceName
+        
+        self.spinner.startAnimating()
+        rssiTimer = Timer.scheduledTimer(withTimeInterval: 1.0,
+                                         repeats: true,
+                                         block: self.readRSSITimer)
         
 //        let d = notification.userInfo?["data"] as! Data?
 //        let s = String(bytes: d!, encoding: String.Encoding.utf8)
