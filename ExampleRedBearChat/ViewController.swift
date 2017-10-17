@@ -16,7 +16,10 @@ class ViewController: UIViewController {
     lazy var bleShield:BLE = (UIApplication.shared.delegate as! AppDelegate).bleShield
     var rssiTimer = Timer()
     @IBOutlet weak var spinner: UIActivityIndicatorView!
-    @IBOutlet weak var buttonConnect: UIButton!
+    //@IBOutlet weak var buttonConnect: UIButton!
+    
+    @IBOutlet weak var connectLabel: UILabel!
+    
     @IBOutlet weak var labelText: UILabel!
     @IBOutlet weak var textBox: UITextField!
     @IBOutlet weak var rssiLabel: UILabel!
@@ -71,12 +74,23 @@ class ViewController: UIViewController {
     // NEW  CONNECT FUNCTION
     @objc func onBLEDidConnectNotification(notification:Notification){
         print("Notification arrived that BLE Connected")
+        self.connectLabel.text = "Connected"
+        
+        let deviceName = notification.userInfo?["name"] as! String?
+        
+        print(deviceName)
+        
+        self.connectLabel.text = deviceName
+        
+//        let d = notification.userInfo?["data"] as! Data?
+//        let s = String(bytes: d!, encoding: String.Encoding.utf8)
+//        self.labelText.text = s
     }
     
     // OLD DELEGATION CONNECT FUNCTION
     func bleDidConnectToPeripheral() {
         self.spinner.stopAnimating()
-        self.buttonConnect.setTitle("Disconnect", for: .normal)
+        //self.buttonConnect.setTitle("Disconnect", for: .normal)
         
         // Schedule to read RSSI every 1 sec.
         rssiTimer = Timer.scheduledTimer(withTimeInterval: 1.0,
@@ -88,13 +102,14 @@ class ViewController: UIViewController {
     // OLD DELEGATION DISCONNECT FUNCTION
     func bleDidDisconnectFromPeripheral() {
         // MARK: CHANGE 5.b: remove all accesses of the "connect button"
-        self.buttonConnect.setTitle("Connect", for: .normal)
+        //self.buttonConnect.setTitle("Connect", for: .normal)
         rssiTimer.invalidate()
     }
     
     // NEW  DISCONNECT FUNCTION
     @objc func onBLEDidDisconnectNotification(notification:Notification){
         print("Notification arrived that BLE Disconnected a Peripheral")
+        self.connectLabel.text = "Disconnected"
     }
     
     // OLD FUNCTION: parse the received data using BLEDelegate protocol
